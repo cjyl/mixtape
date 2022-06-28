@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import List from './components/List';
+import Form from './components/Form';
+
+const data = [
+  {
+    name: "wap"
+  },
+  {
+    name: "been so long"
+  },
+  {
+    name: "lunch"
+  },
+]
 
 function App() {
+  const [songs, setSongs] = useState([]);
+
+  useEffect(() => {
+    setSongs(data)
+  }, [])
+
+  const addSongHandler = song => {
+    const newSongs = [...songs, song];
+    setSongs(newSongs);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <h1 className="title">my mixtape</h1>
+    <Form addSong={addSongHandler}/>
+    <List songs={songs} />
     </div>
   );
 }
